@@ -12,7 +12,7 @@ def get_random_word():
 def play_game():
     secret_word = get_random_word()
     print("Welcome to Snowman Meltdown!")
-    print("Secret word selected: " + secret_word)   # for testing, later remove this line
+    print("Secret word selected: " + secret_word)  # for testing, later remove this line
 
     # TODO: Build your game loop here.
     # For now, simply prompt the user once:
