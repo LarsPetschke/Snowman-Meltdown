@@ -1,5 +1,31 @@
 import random
 
+# Snowman ASCII Art stages
+STAGES = [
+    """
+      ___  
+     /___\\ 
+     (o o) 
+     ( : ) 
+     ( : ) 
+    """,
+    """
+      ___  
+     /___\\ 
+     (o o) 
+     ( : ) 
+    """,
+    """
+      ___  
+     /___\\ 
+     (o o) 
+    """,
+    """
+      ___  
+     /___\\ 
+    """
+]
+
 # List of secret words
 WORDS = ["python", "git", "github", "snowman", "meltdown"]
 
@@ -9,40 +35,35 @@ def get_random_word():
     return WORDS[random.randint(0, len(WORDS) - 1)]
 
 
-def print_snowman(lst, mistakes):
-    remaining = lst[:len(lst) - mistakes]
-    for line in remaining:
-        print(line)
+def display_game_state(mistakes, secret_word, guessed_letters):
+    # Display ASCII art for current mistake count
+    print(STAGES[mistakes])
+
+    # Build display version of the secret word
+    display_word = ""
+    for letter in secret_word:
+        if letter in guessed_letters:
+            display_word += letter + " "
+        else:
+            display_word += "_ "
+
+    print("Word:", display_word)
+    print("\n")
 
 
 def play_game():
     secret_word = get_random_word()
+    guessed_letters = []
+    mistakes = 0
+
     print("Welcome to Snowman Meltdown!")
 
-    mistakes = 0
-    MAX_MISTAKES = 5
+    # Step 2: Show initial game state
+    display_game_state(mistakes, secret_word, guessed_letters)
 
-    lst = [
-        "    ___    ",
-        "   /___\   ",
-        "   (o o)   ",
-        "   ( : )   ",
-        "   ( : )   "
-    ]
-
-    while mistakes < MAX_MISTAKES:
-        print_snowman(lst, mistakes)
-        print("Word:  _ _ _ _ _ _ ")
-
-        guess = input("Guess a letter: ").lower()
-
-        if guess not in secret_word:
-            mistakes += 1
-            print("Wrong! Snowman is melting...")
-        else:
-            print("Correct!")
-
-    print("Game over! The word was:", secret_word)
+    # Prompt user for one guess (logic comes later)
+    guess = input("Guess a letter: ").lower()
+    print("You guessed:", guess)
 
 
 if __name__ == "__main__":
