@@ -9,15 +9,40 @@ def get_random_word():
     return WORDS[random.randint(0, len(WORDS) - 1)]
 
 
+def print_snowman(lst, mistakes):
+    remaining = lst[:len(lst) - mistakes]
+    for line in remaining:
+        print(line)
+
+
 def play_game():
     secret_word = get_random_word()
     print("Welcome to Snowman Meltdown!")
-    print("Secret word selected: " + secret_word)  # for testing, later remove this line
 
-    # TODO: Build your game loop here.
-    # For now, simply prompt the user once:
-    guess = input("Guess a letter: ").lower()
-    print("You guessed:", guess)
+    mistakes = 0
+    MAX_MISTAKES = 5
+
+    lst = [
+        "    ___    ",
+        "   /___\   ",
+        "   (o o)   ",
+        "   ( : )   ",
+        "   ( : )   "
+    ]
+
+    while mistakes < MAX_MISTAKES:
+        print_snowman(lst, mistakes)
+        print("Word:  _ _ _ _ _ _ ")
+
+        guess = input("Guess a letter: ").lower()
+
+        if guess not in secret_word:
+            mistakes += 1
+            print("Wrong! Snowman is melting...")
+        else:
+            print("Correct!")
+
+    print("Game over! The word was:", secret_word)
 
 
 if __name__ == "__main__":
