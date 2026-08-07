@@ -1,12 +1,21 @@
 from ascii_art import STAGES
 import random
+import os
+
 
 WORDS = ["python", "git", "github", "snowman", "meltdown"]
 
 def get_random_word():
+    """
+    Return a randomly selected word from the WORDS list
+    """
     return random.choice(WORDS)
 
+
 def display_game_state(mistakes, secret_word, guessed_letters):
+    """
+    Display the current snowman ASCII art and the partially guessed word.
+    """
     print(STAGES[mistakes])
 
     display_word = ""
@@ -18,7 +27,24 @@ def display_game_state(mistakes, secret_word, guessed_letters):
     print("Word:", display_word)
     print("\n")
 
+
 def play_game():
+    """
+    Run a full round of the Snowman Meltdown game.
+
+    This function handles:
+        - Initializing game state (secret word, guessed letters, mistake counter).
+        - Repeatedly prompting the user for guesses.
+        - Validating input (single alphabetical character).
+        - Tracking correct and incorrect guesses.
+        - Updating the snowman ASCII art based on mistakes.
+        - Detecting win and loss conditions.
+        - Displaying the final game result.
+
+    The game continues until:
+        - The player guesses all letters correctly, OR
+        - The number of mistakes reaches the maximum allowed.
+    """
     secret_word = get_random_word()
     guessed_letters = []
     mistakes = 0
@@ -27,6 +53,7 @@ def play_game():
     print("Welcome to Snowman Meltdown!")
 
     while mistakes < MAX_MISTAKES:
+        os.system("cls" if os.name == "nt" else "clear")
         display_game_state(mistakes, secret_word, guessed_letters)
 
         guess = input("Guess a letter: ").lower()
